@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+    <style>
+        .red{
+            color:red;
+        }
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <ul>
+        <li th:each="dto : ${list}">
+            <span  th:if="${dto.sno %2 == 0}">
+            [[${dto}]]
+            </span>
+            <span th:unless="${dto.sno %2 == 0}" th:text="${dto.regTime} + '======='"></span>
+            <br>
+            <span th:class="${dto.sno %2 == 0 ? 'red' : ''}">-----------</span>
+            <a th:href="@{/sample/ex1/1(sno=${dto.sno})}">[[${dto.sno}]]</a>
+        </li>
+
+    </ul>
+
+    <script th:inline="javascript">
+        var msg = [[${list.size}]];
+        console.log(msg);
+    </script>
+</body>
+</html>

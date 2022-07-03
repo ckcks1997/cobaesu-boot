@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+
+  <title>Document</title>
+</head>
+<body>
+<h1>fragment test</h1>
+<h1>lay1</h1>
+<th:block th:replace="~{fragments/fragment2}"></th:block>
+<div th:replace="~{fragments/fragment1 :: part1}">교체</div>
+<div th:insert="~{/fragments/fragment1 :: part2}">22</div> <!--div태그가 또 생김-->
+<div th:block th:replace="~{fragments/fragment1 :: part3}">33</div>
+
+<th:block th:replace="~{/fragments/fragment3:: target(~{this:: #ulFirst}, ~{this:: #ulSecond})}">
+
+  <ul id="ulFirst">
+    <li>AAA</li>
+  </ul>
+
+  <ul id="ulSecond">
+    <li>BBB</li>
+  </ul>
+
+</th:block>
+
+
+</body>
+</html>
