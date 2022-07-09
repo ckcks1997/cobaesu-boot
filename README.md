@@ -34,5 +34,45 @@ Pageable p = PageRequest.of(0,10, sort);
  
 ```
 -------
-## ch.03
+## ch.04
+#### Auditing
+엔티티에서 상속받아 사용, 날짜 등을 자동으로 삽입해줌.
+
+메인 클래스에서 ```@EnableJpaAuditing```를 선언 후 다음 클래스를 만든다. 
+```java
+@EntityListeners(AuditingEntityListener.class)//JPA Entity에 이벤트가 발생할 때 콜백을 처리하고 코드를 실행하는 방법
+@MappedSuperclass //모 클래스에 선언하고 속성만 상속 받아서 사용하고 싶을 때
+@Getter
+public class BaseEntity {
+
+    @CreatedDate
+    @Column(name="regdate", updatable = false)
+    private LocalDateTime regDate;
+
+    @LastModifiedDate
+    @Column(name = "moddate")
+    private LocalDateTime modDate;
+}
+
+```
+그 다음 해당 클래스를 상속받으면 끝.
+```java
+@Entity
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
+@ToString
+public class Guestbook extends BaseEntity{
+
+    @Id
+    @GeneratedValue
+    private Long gno;
+
+    @Column(length = 100, nullable = false)
+    private String title;
+    
+    ...
+```
+
 
